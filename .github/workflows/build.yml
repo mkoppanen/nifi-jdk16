@@ -16,6 +16,7 @@ jobs:
       - name: Checkout apache nifi
         uses: actions/checkout@v2
         with:
+          fetch: 0
           name: apache/nifi
           ref: refs/tags/rel/nifi-${{ env.NIFI_VERSION }}
 
