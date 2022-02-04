@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - "master"
+      - "main"
 
 env:
   NIFI_VERSION: 1.15.3
