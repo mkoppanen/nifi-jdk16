@@ -38,4 +38,4 @@ jobs:
             "BASE_URL=https://archive.apache.org/dist"
             "DISTRO_PATH=${{ env.NIFI_VERSION }}"
             "IMAGE_TAG=16-jdk-buster"
-          tags: mkoppanen/nifi-${{ env.NIFI_VERSION }}-16-jdk
+          tags: mkoppanen/nifi:${{ env.NIFI_VERSION }}-16-jdk
