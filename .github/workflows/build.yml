@@ -16,8 +16,7 @@ jobs:
       - name: Checkout apache nifi
         uses: actions/checkout@v2
         with:
-          fetch: 0
-          name: apache/nifi
+          repository: apache/nifi
           ref: refs/tags/rel/nifi-${{ env.NIFI_VERSION }}
 
       - name: Login to DockerHub
