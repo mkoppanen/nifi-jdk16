@@ -7,7 +7,6 @@ on:
 
 env:
   NIFI_VERSION: 1.15.3
-  IMAGE_TAG: mkoppanen/nifi-1.15.3-17-jdk
 
 jobs:
   docker:
@@ -34,9 +33,9 @@ jobs:
           build-args: |
             "UID=1000"
             "GID=1000"
-            "NIFI_VERSION=1.15.3"
+            "NIFI_VERSION=${{ env.NIFI_VERSION }}"
             "MIRROR_BASE_URL=https://archive.apache.org/dist"
             "BASE_URL=https://archive.apache.org/dist"
-            "DISTRO_PATH=1.15.3"
-            "IMAGE_TAG=17-jdk-buster"
-          tags: ${{ env.IMAGE_TAG }}
+            "DISTRO_PATH=${{ env.NIFI_VERSION }}"
+            "IMAGE_TAG=16-jdk-buster"
+          tags: mkoppanen/nifi-${{ env.NIFI_VERSION }}-16-jdk
