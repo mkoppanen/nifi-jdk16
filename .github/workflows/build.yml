@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - "master"
+
+env:
+  NIFI_VERSION: 1.15.3
+  IMAGE_TAG: mkoppanen/nifi-1.15.3-17-jdk
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout apache nifi
+        uses: actions/checkout@v2
+        with:
+          name: apache/nifi
+          ref: refs/tags/rel/nifi-${{ env.NIFI_VERSION }}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./nifi-docker/dockerhub
+          file: ./nifi-docker/dockerhub/Dockerfile
+          push: true
+          build-args:
+            UID: 1000
+            GID: 1000
+            NIFI_VERSION: 1.15.3 
+            MIRROR_BASE_URL: https://archive.apache.org/dist
+            BASE_URL: https://archive.apache.org/dist
+            DISTRO_PATH: 1.15.3
+            IMAGE_TAG: 17-jdk-buster
+          tags: ${{ env.IMAGE_TAG }}
